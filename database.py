@@ -14,9 +14,12 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./myapi.db"
 # create_engine : 커넥션 출을 생성
 #   커넥션 풀 : database에 접속하는 객체를 일정 갯수만큼 만들어 놓고 돌려가며 사용하는 것.
 #   (database에 접속하는 세션 수를 제어하고, 세션 접속에 소요되는 시간을 줄이고자 하는 용도)
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    )
+else:
+    engine = create_engine(SQLALCHEMY_DATABASE_URL)
 # database에 접속하기 위해 필요한 클래스
 # autocommit = False : 데이터를 변경했을 때 commit이라는 사인을 주어야만 실제 저장됨. rollback 가능.
 # (autocommit = True : 즉시 적용, rollback 불가)
