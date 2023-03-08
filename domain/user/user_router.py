@@ -6,6 +6,7 @@ from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from starlette import status
+from starlette.config import Config
 
 from database import get_db
 from domain.user import user_schema, user_crud
@@ -16,6 +17,9 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 # 암호화시 사용하는 64자리의 랜덤한 문자열이다.
 # python 입력 >>> import secrets >>> secrets.token_hex(32)
 SECRET_KEY = "d82581ffa180d76c07a84e771aa223bf6ef48ac3b2bd27981f4d80dae50a942e"
+config = Config('.env')
+ACCESS_TOKEN_EXPIRE_MINUTES = int(config('ACCESS_TOKEN_EXPIRE_MINUTES'))
+SECRET_KEY = config('SECRET_KEY')
 # 토큰 생성시 사용하는 알고리즘을 의미하며 여기서는 HS256을 사용한다.
 ALGORITHM = "HS256"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/user/login")
