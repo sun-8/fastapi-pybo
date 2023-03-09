@@ -16,7 +16,7 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./myapi.db"
 #   (database에 접속하는 세션 수를 제어하고, 세션 접속에 소요되는 시간을 줄이고자 하는 용도)
 if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
     engine = create_engine(
-        SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+        SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}, echo=True
     )
 else:
     engine = create_engine(SQLALCHEMY_DATABASE_URL)
