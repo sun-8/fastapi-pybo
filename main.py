@@ -12,8 +12,7 @@ app = FastAPI()
 
 # CORS 예외 URL 등록
 origins = [
-    "http://localhost:5173",
-    "http://15.164.145.249"
+    "http://localhost:5173"
 ]
 
 app.add_middleware(
